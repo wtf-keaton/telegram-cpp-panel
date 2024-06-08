@@ -51,18 +51,25 @@ int main( )
 	}
 
 	util::log::info( "Creating telegram bot handlers." );
+
 	// @note: Create command / events / callback handlers
 	bot.make_handler( );
 
 	util::log::info( "Telegram bot handlers success created." );
 
+	signal( SIGINT, [ ]( int s )
+	{
+		printf( "SIGINT got\n" );
+		exit( 0 );
+	} );
+
 	try
 	{
 		bot.long_poll_loop( );
 	}
-	catch ( ... )
+	catch ( std::exception const& ex )
 	{
-		// @todo: Create exception handler
+		util::log::critical( "Exception handled: {}", ex.what( ) );
 	}
 
 }
