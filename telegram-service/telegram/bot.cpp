@@ -2,7 +2,7 @@
 
 #include "../logger/logger.h"
 
-sh::telegram::c_bot::c_bot( std::string const& token, uint64_t const super_admin ) 
+sh::telegram::c_bot::c_bot( std::string const& token, uint64_t const super_admin )
 	: m_super_admin( super_admin ), m_bot( token )
 {
 	if ( !m_bot.getApi( ).getMe( )->username.empty( ) )
@@ -12,7 +12,7 @@ sh::telegram::c_bot::c_bot( std::string const& token, uint64_t const super_admin
 	}
 }
 
-void sh::telegram::c_bot::make_handler()
+void sh::telegram::c_bot::make_handler( )
 {
 	// @note: okay it's shit code
 	auto& bot = m_bot;
@@ -23,27 +23,27 @@ void sh::telegram::c_bot::make_handler()
 	} );
 }
 
-void sh::telegram::c_bot::long_poll_loop() const
+void sh::telegram::c_bot::long_poll_loop( ) const
 {
+	TgBot::TgLongPoll long_poll( m_bot );
 	while ( true )
 	{
 		util::log::info( "Long poll started" );
-		TgBot::TgLongPoll long_poll( m_bot );
 		long_poll.start( );
 	}
 }
 
-sh::telegram::c_bot::operator bool() const
+sh::telegram::c_bot::operator bool( ) const
 {
 	return m_bot.getApi( ).getMe( )->username.empty( ) == false;
 }
 
-const TgBot::Bot& sh::telegram::c_bot::operator()() const
+const TgBot::Bot& sh::telegram::c_bot::operator()( ) const
 {
 	return m_bot;
 }
 
-TgBot::Bot& sh::telegram::c_bot::operator()()
+TgBot::Bot& sh::telegram::c_bot::operator()( )
 {
 	return m_bot;
 }
