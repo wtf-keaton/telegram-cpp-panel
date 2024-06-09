@@ -1,7 +1,17 @@
-/* there's only work part of file before include of localization */
+/* 
+* there's only work part of file before include of localization
+before_test: mkdir test_build; mkdir test_build/localization;
+* compile script: 
+g++ .\tests\localization\localization_test.cpp --std=c++20 -O3 
+-Werror -Wpedantic -Wall -I.\telegram-service\localization\ -o test_build/localization/a.exe;
+* compile & run script:
+g++ .\tests\localization\localization_test.cpp --std=c++20 -O3
+ -Werror -Wpedantic -Wall -I.\telegram-service\localization\ -o test_build/localization/a.exe;
+  .\test_build\localization\a.exe
+*/
 #include <fstream>
-constexpr auto OUTPUT_FILENAME = "localization_test.txt";
-constexpr auto ENABLE_EXCEPTION_RESULT = true;
+constexpr auto OUTPUT_FILENAME = "test_build/localization/localization_test.txt";
+constexpr auto ENABLE_EXCEPTION_RESULT = false;
 
 #define LOC_TEST
 
@@ -11,8 +21,11 @@ constexpr auto ENABLE_EXCEPTION_RESULT = true;
 #define MAIN localization_test_main
 #endif
 
+#ifndef GLOBAL_TEST
 #include "localization.h"
-
+#else
+#include "../../telegram-service/localization/localization.h"
+#endif
 void init_russian_localization() {
   using enum sh::localization_t;
   auto& localization = sh::localization::instance();
