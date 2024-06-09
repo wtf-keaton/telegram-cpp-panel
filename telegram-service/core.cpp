@@ -1,6 +1,10 @@
+#include "core.h"
+
 #include "config/config.h"
 
 #include <thread>
+
+#include "localization/localization.h"
 
 #include "logger/logger.h"
 #include "telegram/bot.h"

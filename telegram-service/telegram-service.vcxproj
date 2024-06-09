@@ -142,18 +142,20 @@
     <ClCompile Include="config\config.cpp" />
     <ClCompile Include="core.cpp" />
     <ClCompile Include="database\database.cpp" />
-    <ClCompile Include="localization\localization.cpp" />
     <ClCompile Include="telegram\bot.cpp" />
+    <ClCompile Include="telegram\handler\handler.cpp" />
     <ClCompile Include="telegram\keyboard\keyboard.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config\config.h" />
+    <ClInclude Include="core.h" />
     <ClInclude Include="database\database.h" />
     <ClInclude Include="hash\fnv1a.h" />
     <ClInclude Include="json\json.h" />
     <ClInclude Include="localization\localization.h" />
     <ClInclude Include="logger\logger.h" />
     <ClInclude Include="telegram\bot.h" />
+    <ClInclude Include="telegram\handler\handler.h" />
     <ClInclude Include="telegram\keyboard\keyboard.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
