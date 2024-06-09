@@ -71,5 +71,4 @@ int main( )
 	{
 		util::log::critical( "Exception handled: {}", ex.what( ) );
 	}
-
 }
