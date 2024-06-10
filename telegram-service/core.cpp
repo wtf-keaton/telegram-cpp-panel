@@ -9,18 +9,33 @@
 #include "logger/logger.h"
 #include "telegram/bot.h"
 
+#include "getoptw/getoptw.h"
+
 #define SLEEP(time) std::this_thread::sleep_for( time )
 
 using namespace std::chrono_literals;
+using namespace std::string_literals;
 
-int main( )
+std::string g_config_filename = "config.json";
+
+int main(int argc, char** argv)
 {
+	util::log::info( "Parsing command line arguments" );
+
+	getoptw::args cmd_args{argc, argv};
+
+	if (auto cfg_name = cmd_args["--config"]; !cfg_name.empty()) {
+		g_config_filename = cfg_name;
+		util::log::info( "Setting config filename to \""s + g_config_filename + "\""s );
+	}
+
+
 	util::log::info( "Parsing configuration..." );
 
-	auto config = sh::c_config( "config.json" );
+	auto config = sh::c_config( g_config_filename );
 	if ( !config )
 	{
-		util::log::warn( "First launch detected. Please configure bot at: \"config.json\"" );
+		util::log::warn( "First launch detected. Please configure bot at: \"s" + g_config_filename + "\""s );
 
 		if ( !config.create( ) )
 		{
