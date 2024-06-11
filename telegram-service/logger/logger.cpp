@@ -12,8 +12,8 @@ sh::c_logger::c_logger( bool const to_file )
 	auto const file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>( "logs/service.log" );
 	file_sink->set_pattern( "[%d/%m/%Y %H:%M:%S] [%n] [%l] %v" );
 
-	// @note: Create log file every 24 hours
-	auto const daily_sink = std::make_shared<spdlog::sinks::daily_file_sink_mt>( "logs/daily.log", 24, 0 );
+	// @note: Create log file every 23 hours
+	auto const daily_sink = std::make_shared<spdlog::sinks::daily_file_sink_mt>( "logs/daily.log", 23, 0 );
 	daily_sink->set_pattern( "[%d/%m/%Y %H:%M:%S] [daily-%n] [%l] %v" );
 
 	std::vector<spdlog::sink_ptr> log_sinks;
@@ -26,6 +26,8 @@ sh::c_logger::c_logger( bool const to_file )
 												 log_sinks.end( ) );
 
 	spdlog::register_logger( m_logger );
+
+	spdlog::set_level( spdlog::level::debug );
 
 	spdlog::flush_every( std::chrono::seconds( 1 ) );
 }

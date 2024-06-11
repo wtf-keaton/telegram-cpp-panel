@@ -23,7 +23,7 @@ void sh::telegram::c_bot::make_handler( )
 
 	g_data.m_bot->getEvents( ).onAnyMessage( [ & ]( TgBot::Message::Ptr const& message )
 	{
-		sh::g_logger.get()->debug( "User wrote {}\n", message->text.c_str( ) );
+		sh::g_logger.get()->debug( "User wrote {}", message->text.c_str( ) );
 		if ( StringTools::startsWith( message->text, "/start" ) )
 			return;
 
