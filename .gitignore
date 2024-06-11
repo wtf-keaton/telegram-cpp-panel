@@ -35,6 +35,7 @@
 .vs
 build
 x64
+test_build
 
 # Configuration file
 *.json

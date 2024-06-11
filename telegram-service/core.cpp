@@ -20,25 +20,28 @@ std::string g_config_filename = "config.json";
 
 int main(int const argc, char** argv)
 {
-	util::log::info( "Parsing command line arguments" );
+	// @note: setting up spdlog
+	spdlog::set_pattern( "[%H:%M:%S] [thread: %t] [%^ %l %$] %v" );
+
+	spdlog::info( "Parsing command line arguments" );
 
 	getoptw::args const cmd_args{argc, argv};
 
 	if (auto const cfg_name = cmd_args["--config"]; !cfg_name.empty()) {
 		g_config_filename = cfg_name;
-		util::log::info( "Setting config filename to \"{}\"", g_config_filename );
+		spdlog::info( "Setting config filename to \"{}\"", g_config_filename );
 	}
 
-	util::log::info( "Parsing configuration..." );
+	spdlog::info( "Parsing configuration..." );
 
 	auto config = sh::c_config( g_config_filename );
 	if ( !config )
 	{
-		util::log::warn( "First launch detected. Please configure bot at: \"{}\"", g_config_filename );
+		spdlog::warn( "First launch detected. Please configure bot at: \"{}\"", g_config_filename );
 
 		if ( !config.create( ) )
 		{
-			util::log::error( "Failed to create config." );
+			spdlog::error( "Failed to create config." );
 			SLEEP( 5s );
 
 			return 2;
@@ -51,29 +54,29 @@ int main(int const argc, char** argv)
 
 	if ( !config.load( ) )
 	{
-		util::log::error( "Failed to load config." );
+		spdlog::error( "Failed to load config." );
 		SLEEP( 5s );
 
 		return 0;
 	}
 
-	util::log::info( "Config success parsed. Starting telegram bot" );
+	spdlog::info( "Config success parsed. Starting telegram bot" );
 
-	auto bot = sh::telegram::c_bot( config( ).m_telegram_bot_token, config( ).m_super_admin_idx );
+	auto const bot = sh::telegram::c_bot( config( ).m_telegram_bot_token, config( ).m_super_admin_idx );
 	if ( !bot )
 	{
-		util::log::error( "Failed to authorize in bot with token: {}.", config( ).m_telegram_bot_token );
+		spdlog::error( "Failed to authorize in bot with token: {}.", config( ).m_telegram_bot_token );
 		SLEEP( 5s );
 
 		return 1;
 	}
 
-	util::log::info( "Creating telegram bot handlers." );
+	spdlog::info( "Creating telegram bot handlers." );
 
 	// @note: Create command / events / callback handlers
 	bot.make_handler( );
 
-	util::log::info( "Telegram bot handlers success created." );
+	spdlog::info( "Telegram bot handlers success created." );
 
 	signal( SIGINT, [ ]( int s )
 	{
@@ -87,6 +90,6 @@ int main(int const argc, char** argv)
 	}
 	catch ( std::exception const& ex )
 	{
-		util::log::critical( "Exception handled: {}", ex.what( ) );
+		spdlog::critical( "Exception handled: {}", ex.what( ) );
 	}
 }

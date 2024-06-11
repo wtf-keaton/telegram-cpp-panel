@@ -4,6 +4,8 @@
 #include "../../core.h"
 #include "../keyboard/keyboard.h"
 
+#include "../../details/format.h"
+
 void sh::telegram::handler::command::handle_start( message_t const& message )
 {
 	// @note: Example keyboard builder
@@ -34,6 +36,10 @@ void sh::telegram::handler::c_callback::handle(callback_query_t const& query)
 {
 	if ( auto const handler = m_handlers.find( HASH( query->data.c_str( ) ) ); handler != m_handlers.end( ) )
 	{
+		if ( !handler->second )
+			throw std::runtime_error( details::format(
+				"in [", details::source_location_format( std::source_location::current( ) ), "] cannot find callback='", handler->first, "'" ) );
+
 		handler->second( query );
 	}
 }

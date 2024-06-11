@@ -64,18 +64,6 @@ namespace sh
 			m_data.emplace( synonim, value );
 		}
 
-		std::string get( hash_t const key )
-		{
-			for ( auto&& data : m_data )
-			{
-				if ( data.first != key ) continue;
-
-				return data.second;
-			}
-
-			return "failed to find localization";
-		}
-
 		std::string_view operator[]( hash_t const s ) const
 		{
 			auto const it = m_data.find( s );

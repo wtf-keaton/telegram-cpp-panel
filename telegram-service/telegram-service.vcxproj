@@ -150,6 +150,7 @@
     <ClInclude Include="config\config.h" />
     <ClInclude Include="core.h" />
     <ClInclude Include="database\database.h" />
+    <ClInclude Include="details\format.h" />
     <ClInclude Include="hash\fnv1a.h" />
     <ClInclude Include="json\json.h" />
     <ClInclude Include="localization\localization.h" />
