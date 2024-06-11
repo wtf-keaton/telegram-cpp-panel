@@ -35,9 +35,9 @@ constexpr auto ENABLE_EXCEPTION_RESULT = false;
 void init_russian_localization() {
   using enum sh::e_localization;
   auto& localization = sh::c_localization::instance();
-  localization[_ru].add("welcome_text"_h, "Привет мир!");
-  localization[_ru].add("bye_text"_h, "Пока мир!");
-  localization[_ru].add("random"_h, "Рандомный текст, Например, 1234.");
+  localization[_ru].add("welcome_text", "Привет мир!");
+  localization[_ru].add("bye_text", "Пока мир!");
+  localization[_ru].add("random", "Рандомный текст, Например, 1234.");
   if constexpr (ENABLE_EXCEPTION_RESULT)
     localization[_ru].add("random"_h, "rand");
 }
@@ -45,9 +45,9 @@ void init_russian_localization() {
 void init_english_localization() {
   using enum sh::e_localization;
   auto& localization = sh::c_localization::instance();
-  localization[_en].add("welcome_text"_h, "Hello world!");
-  localization[_en].add("bye_text"_h, "Bye world!");
-  localization[_en].add("random"_h, "Here's nothing for you.");
+  localization[_en].add("welcome_text", "Hello world!");
+  localization[_en].add("bye_text", "Bye world!");
+  localization[_en].add("random", "Here's nothing for you.");
 }
 
 int MAIN() {

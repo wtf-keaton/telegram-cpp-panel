@@ -16,10 +16,11 @@
 #include <string>
 #include <utility>  // forward
 
+#include "../details/format.h"
 #include "../hash/fnv1a.h"
 #include "../json/json.h"
-#include "details/format.h"
 
+#include "../logger/logger.h"
 namespace sh
 {
 	enum e_localization : size_t
@@ -49,19 +50,20 @@ namespace sh
 			m_data = json.get<std::map<hash_t, std::string>>( );
 		}
 
-		void add( hash_t synonim, const std::string& value )
+		void add( std::string_view const& key, const std::string& value )
 		{
-			if ( m_data.contains( synonim ) )
+			auto const key_hashed = HASH( key.data( ) );
+
+			if ( m_data.contains( key_hashed ) )
 			{
-				/* @todo: Here we need logging for this exception */
-				throw std::runtime_error{ details::format(
+				g_logger.get( )->error( details::format(
 					"in [",
 					details::source_location_format( std::source_location::current( ) ),
-					"] cannot add second value as value='", value, "' for synonym='",
-					synonim, '\'' ) };
+					"] cannot add second value as value='", value, "' for key='",
+					key, '\'' ) );
 			}
 
-			m_data.emplace( synonim, value );
+			m_data.emplace( key_hashed, value );
 		}
 
 		std::string_view operator[]( hash_t const s ) const
