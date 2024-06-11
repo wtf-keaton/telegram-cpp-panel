@@ -13,8 +13,8 @@ namespace sh::telegram
 	public:
 		explicit c_bot( std::string const& token, uint64_t super_admin );
 
-		void make_handler( );
-		void long_poll_loop( ) const;
+		static void make_handler( );
+		static void long_poll_loop( );
 
 		explicit operator bool( ) const;
 	};

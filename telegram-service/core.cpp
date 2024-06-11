@@ -26,7 +26,7 @@ int main(int const argc, char** argv)
 
 	if (auto const cfg_name = cmd_args["--config"]; !cfg_name.empty()) {
 		g_config_filename = cfg_name;
-		util::log::info( "Setting config filename to \""s + g_config_filename + "\""s );
+		util::log::info( "Setting config filename to \"{}\"", g_config_filename );
 	}
 
 	util::log::info( "Parsing configuration..." );
@@ -34,7 +34,7 @@ int main(int const argc, char** argv)
 	auto config = sh::c_config( g_config_filename );
 	if ( !config )
 	{
-		util::log::warn( "First launch detected. Please configure bot at: \"s" + g_config_filename + "\""s );
+		util::log::warn( "First launch detected. Please configure bot at: \"{}\"", g_config_filename );
 
 		if ( !config.create( ) )
 		{

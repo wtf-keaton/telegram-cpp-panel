@@ -3,12 +3,12 @@
 sh::telegram::c_inline_keyboard::c_inline_keyboard( )
 	: m_row_index( 0 )
 {
-	m_keyboard = std::make_shared_for_overwrite<TgBot::InlineKeyboardMarkup>();
+	m_keyboard = std::make_shared_for_overwrite<TgBot::InlineKeyboardMarkup>( );
 }
 
-sh::telegram::c_inline_keyboard sh::telegram::c_inline_keyboard::add_button( button_data_t const& button_data )
+sh::telegram::c_inline_keyboard sh::telegram::c_inline_keyboard::add( button_data_t const& button_data )
 {
-	TgBot::InlineKeyboardButton::Ptr const new_button( new TgBot::InlineKeyboardButton );
+	auto const new_button = std::make_shared_for_overwrite < TgBot::InlineKeyboardButton>( );
 	new_button->text = button_data.first;
 	new_button->callbackData = button_data.second;
 
@@ -24,7 +24,7 @@ sh::telegram::c_inline_keyboard sh::telegram::c_inline_keyboard::next_row( )
 	return *this;
 }
 
-TgBot::InlineKeyboardMarkup::Ptr sh::telegram::c_inline_keyboard::create( )
+sh::telegram::inline_keyboard_markup_t sh::telegram::c_inline_keyboard::create( )
 {
 	// @note: If we're not call next_row function after create buttons
 	++m_row_index;
