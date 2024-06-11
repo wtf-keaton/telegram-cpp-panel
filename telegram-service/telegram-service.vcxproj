@@ -142,6 +142,7 @@
     <ClCompile Include="config\config.cpp" />
     <ClCompile Include="core.cpp" />
     <ClCompile Include="database\database.cpp" />
+    <ClCompile Include="logger\logger.cpp" />
     <ClCompile Include="telegram\bot.cpp" />
     <ClCompile Include="telegram\handler\handler.cpp" />
     <ClCompile Include="telegram\keyboard\keyboard.cpp" />

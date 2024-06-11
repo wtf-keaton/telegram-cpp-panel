@@ -36,6 +36,7 @@
 build
 x64
 test_build
+telegram-service/logs
 
 # Configuration file
 *.json

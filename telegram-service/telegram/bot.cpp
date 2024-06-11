@@ -13,7 +13,7 @@ sh::telegram::c_bot::c_bot( std::string const& token, uint64_t const super_admin
 	g_data.m_bot = std::make_shared<TgBot::Bot>( token );
 	if ( !g_data.m_bot->getApi( ).getMe( )->username.empty( ) )
 	{
-		spdlog::info( "Bot success authorized with name: {}", g_data.m_bot->getApi( ).getMe( )->username );
+		sh::g_logger.get()->info( "Bot success authorized with name: {}", g_data.m_bot->getApi( ).getMe( )->username );
 	}
 }
 
@@ -23,7 +23,7 @@ void sh::telegram::c_bot::make_handler( )
 
 	g_data.m_bot->getEvents( ).onAnyMessage( [ & ]( TgBot::Message::Ptr const& message )
 	{
-		spdlog::debug( "User wrote {}\n", message->text.c_str( ) );
+		sh::g_logger.get()->debug( "User wrote {}\n", message->text.c_str( ) );
 		if ( StringTools::startsWith( message->text, "/start" ) )
 			return;
 
@@ -32,7 +32,6 @@ void sh::telegram::c_bot::make_handler( )
 
 	g_data.m_bot->getEvents( ).onCallbackQuery( [ callback = handler::c_callback( ) ]( callback_query_t const& query ) mutable
 	{
-		// @note: we only need to initialize it once
 		callback.handle( query );
 	} );
 }
@@ -40,10 +39,10 @@ void sh::telegram::c_bot::make_handler( )
 void sh::telegram::c_bot::long_poll_loop( )
 {
 	if ( !g_data.m_bot->getApi( ).deleteWebhook( ) )
-		spdlog::warn( "Failed to delete webhook" );
+		sh::g_logger.get()->warn( "Failed to delete webhook" );
 
-	auto long_poll = TgBot::TgLongPoll( *g_data.m_bot );
-	spdlog::info( "Long poll started" );
+	auto long_poll = TgBot::TgLongPoll( *g_data.m_bot.get( ) );
+	sh::g_logger.get()->info( "Long poll started" );
 
 	while ( true )
 	{

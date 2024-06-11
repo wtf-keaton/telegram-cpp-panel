@@ -26,7 +26,7 @@ bool sh::c_config::load( )
 
 	if ( !nlohmann::json::accept( output ) )
 	{
-		spdlog::error( "Output is not JSON\n" );
+		sh::g_logger.get( )->error( "Output is not JSON\n" );
 
 		return false;
 	}
