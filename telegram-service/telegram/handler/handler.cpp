@@ -6,6 +6,7 @@
 
 void sh::telegram::handler::command::handle_start( message_t const& message )
 {
+	// @note: Example keyboard builder
 	auto const keyboard = c_inline_keyboard( )
 		.add( { "RU", "ru_lang" } )
 		.add( { "EN", "en_lang" } )

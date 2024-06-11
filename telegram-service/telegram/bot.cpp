@@ -27,14 +27,12 @@ void sh::telegram::c_bot::make_handler( )
 		if ( StringTools::startsWith( message->text, "/start" ) )
 			return;
 
-		g_data.m_bot->getApi( ).sendMessage( message->chat->id, "Your message is: " + message->text );
+		g_data.m_bot->getApi( ).sendMessage( message->chat->id, "[ DEBUG ] > Your message is: " + message->text );
 	} );
 
-	g_data.m_bot->getEvents( ).onCallbackQuery( [ ]( callback_query_t const& query )
+	g_data.m_bot->getEvents( ).onCallbackQuery( [ callback = handler::c_callback( ) ]( callback_query_t const& query ) mutable
 	{
 		// @note: we only need to initialize it once
-		static handler::c_callback callback;
-
 		callback.handle( query );
 	} );
 }
