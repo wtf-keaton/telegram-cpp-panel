@@ -22,7 +22,7 @@ void sh::telegram::c_bot::make_handler( )
 {
 	g_data.m_bot->getEvents( ).onCommand( "start", handler::command::handle_start );
 
-	g_data.m_bot->getEvents( ).onAnyMessage( [ & ]( TgBot::Message::Ptr message )
+	g_data.m_bot->getEvents( ).onAnyMessage( [ & ]( TgBot::Message::Ptr const& message )
 	{
 		printf( "User wrote %s\n", message->text.c_str( ) );
 		if ( StringTools::startsWith( message->text, "/start" ) )

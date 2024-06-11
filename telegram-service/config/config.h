@@ -7,12 +7,6 @@ namespace sh
 	{
 		struct config_data_t
 		{
-			/*database info*/
-			std::string m_database_name;
-			std::string m_database_username;
-			std::string m_database_password;
-
-			/*telegram bot info*/
 			uint64_t  m_super_admin_idx;
 			std::string m_telegram_bot_token;
 		} m_config_data;

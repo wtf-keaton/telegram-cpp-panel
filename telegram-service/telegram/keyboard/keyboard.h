@@ -15,7 +15,7 @@ namespace sh::telegram
 	public:
 		c_inline_keyboard( );
 
-		c_inline_keyboard add_button( button_data_t const& button_data );
+		c_inline_keyboard add( button_data_t const& button_data );
 		c_inline_keyboard next_row( );
 		TgBot::InlineKeyboardMarkup::Ptr create( );
 	};

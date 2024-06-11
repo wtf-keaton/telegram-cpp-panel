@@ -34,10 +34,6 @@ bool sh::c_config::load( )
 	m_config_data.m_super_admin_idx = j[ "super_admin" ].get<uint64_t>( );
 	m_config_data.m_telegram_bot_token = j[ "telegram_token" ];
 
-	m_config_data.m_database_name = j[ "database" ][ "name" ];
-	m_config_data.m_database_username = j[ "database" ][ "username" ];
-	m_config_data.m_database_password = j[ "database" ][ "password" ];
-
 	return true;
 }
 
@@ -50,11 +46,6 @@ bool sh::c_config::create( ) const
 	nlohmann::json j;
 	j[ "super_admin" ] = UINT64_MAX;
 	j[ "telegram_token" ] = "token";
-	j[ "database" ] = {
-		{ "name", "database_name" },
-		{ "username", "database_username" },
-		{ "password", "database_password" },
-	};
 
 	file << j.dump( ) << std::endl;
 

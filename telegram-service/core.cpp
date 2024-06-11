@@ -18,17 +18,16 @@ using namespace std::string_literals;
 
 std::string g_config_filename = "config.json";
 
-int main(int argc, char** argv)
+int main(int const argc, char** argv)
 {
 	util::log::info( "Parsing command line arguments" );
 
-	getoptw::args cmd_args{argc, argv};
+	getoptw::args const cmd_args{argc, argv};
 
-	if (auto cfg_name = cmd_args["--config"]; !cfg_name.empty()) {
+	if (auto const cfg_name = cmd_args["--config"]; !cfg_name.empty()) {
 		g_config_filename = cfg_name;
 		util::log::info( "Setting config filename to \""s + g_config_filename + "\""s );
 	}
-
 
 	util::log::info( "Parsing configuration..." );
 

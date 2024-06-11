@@ -7,8 +7,8 @@
 void sh::telegram::handler::command::handle_start( message_t const& message )
 {
 	auto const keyboard = c_inline_keyboard( )
-		.add_button( { "RU", "ru_lang" } )
-		.add_button( { "EN", "en_lang" } )
+		.add( { "RU", "ru_lang" } )
+		.add( { "EN", "en_lang" } )
 		.create( );
 
 	g_data.m_bot->getApi( ).sendMessage( message->chat->id, "Welcome to Telegram-cpp-bot! Select language", false, NULL, keyboard );
