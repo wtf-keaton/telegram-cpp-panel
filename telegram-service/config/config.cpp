@@ -4,6 +4,7 @@
 #include <fstream>
 
 #include "../json/json.h"
+#include "../logger/logger.h"
 
 namespace fs = std::filesystem;
 
@@ -25,7 +26,7 @@ bool sh::c_config::load( )
 
 	if ( !nlohmann::json::accept( output ) )
 	{
-		std::printf( "Output is not JSON\n" );
+		spdlog::error( "Output is not JSON\n" );
 
 		return false;
 	}
